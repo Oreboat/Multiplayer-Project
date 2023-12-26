@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dwede243nc2ts"]
+
+[ext_resource type="Script" path="res://Weapon.gd" id="1_6bo32"]
+
+[resource]
+script = ExtResource("1_6bo32")
+WeaponMesh = "res://broad_sword.tscn"
+Damage = 1.5

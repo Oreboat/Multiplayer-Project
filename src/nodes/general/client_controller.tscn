@@ -1,0 +1,162 @@
+[gd_scene load_steps=12 format=3 uid="uid://bpd7vj7ps238a"]
+
+[ext_resource type="Script" path="res://src/scripts/player/client_move.gd" id="1_tuhxn"]
+[ext_resource type="Shader" uid="uid://rlqcta2oue3s" path="res://src/Shaders/cel_shader.tres" id="2_lx8jt"]
+[ext_resource type="Texture2D" uid="uid://camjhlfpdhrme" path="res://src/icon.svg" id="3_nsfu3"]
+[ext_resource type="PackedScene" uid="uid://ux6fy0lcbpkp" path="res://hud.tscn" id="4_6yfbt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yjo2o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfq1a"]
+render_priority = 0
+shader = ExtResource("2_lx8jt")
+shader_parameter/Rim_Color = Color(0.121596, 0.366604, 0.629638, 1)
+shader_parameter/Shading_Color = Color(0.294118, 0.627451, 1, 1)
+shader_parameter/Main_Texture = ExtResource("3_nsfu3")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kgn7o"]
+material = SubResource("ShaderMaterial_vfq1a")
+
+[sub_resource type="Animation" id="Animation_kshfk"]
+resource_name = "Attack"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:root_node")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(0, 0, 0), Vector3(0, 1.5708, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Node3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.31037, 0.122764, 0), Vector3(0.0411679, 0.122764, -1.57676), Vector3(-1.49833, 0.122764, -0.144393)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.02, 0.08, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"setAttack"
+}, {
+"args": [],
+"method": &"stopAttack"
+}, {
+"args": [],
+"method": &"resetAnim"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_poeil"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:root_node")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [NodePath("..")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.785398, 3.14159, 1.5708)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Node3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.547853, 0.122764, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gu880"]
+_data = {
+"Attack": SubResource("Animation_kshfk"),
+"RESET": SubResource("Animation_poeil")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_21pmn"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+
+[node name="Client_Controller" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_tuhxn")
+jumpImpulse = 15
+staminaModifier = 1.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_yjo2o")
+
+[node name="Pivot" type="Marker3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot"]
+mesh = SubResource("CapsuleMesh_kgn7o")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="Pivot"]
+transform = Transform3D(1.82735e-06, 1, 1.79264e-06, 0.707107, -2.55972e-06, 0.707107, 0.707107, -2.45375e-08, -0.707107, 0.547853, 0.122764, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gu880")
+}
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_21pmn")
+
+[node name="HUD" parent="." instance=ExtResource("4_6yfbt")]

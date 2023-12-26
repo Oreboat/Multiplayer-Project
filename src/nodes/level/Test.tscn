@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3 uid="uid://b57at16o81c53"]
+
+[ext_resource type="PackedScene" uid="uid://b7avisblp7q3p" path="res://damage_test.tscn" id="4_80rd2"]
+[ext_resource type="PackedScene" uid="uid://0c8ta6nnkkh7" path="res://stamina_regeneration_test.tscn" id="5_ym7sv"]
+[ext_resource type="PackedScene" uid="uid://ird70oirthnd" path="res://rb_test.tscn" id="6_rl1so"]
+
+[sub_resource type="Environment" id="Environment_75o7b"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_agd8y"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_wvw88"]
+
+[node name="World" type="Node3D"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(37.7285, 0, 0, 0, 1, 0, 0, 0, 45.587, -4.60437, 0, 4.98586)
+use_collision = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_75o7b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.407257, 0.312583, 0.858157, -0.251572, -0.864867, 0.434416, 0.877983, -0.392807, -0.273586, -1.13555, 2.33524, -1.44362)
+shadow_enabled = true
+shadow_opacity = 0.51
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.122868, -0.41668, -0.900711, -0.251572, -0.864867, 0.434416, -0.960008, 0.27997, 0.0014398, 0.405851, 6.08518, 0.178276)
+visible = false
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.56195, 0, 0, 0, 1, 0, 0, 0, 3.15364, 16.4041, 1.45004, -20.1704)
+use_collision = true
+mesh = SubResource("PrismMesh_agd8y")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.56195, 0, 0, 0, 1.87123, 0, 0, 0, 3.15364, 16.4041, 1.92016, -15.5349)
+use_collision = true
+mesh = SubResource("PrismMesh_agd8y")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.56195, 0, 0, 0, 3.13165, 0, 0, 0, 3.15364, 16.4041, 2.5401, -10.8388)
+use_collision = true
+mesh = SubResource("PrismMesh_agd8y")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.56195, 0, 0, 0, 5.87143, 0, 0, 0, 3.15364, 16.4041, 3.95116, -5.96126)
+use_collision = true
+mesh = SubResource("PrismMesh_agd8y")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="."]
+transform = Transform3D(-1.15695e-06, 0, 3.35115, 0, 4.83608, 0, -26.468, 0, -1.46484e-07, 0, 3.45893, -15.5263)
+use_collision = true
+mesh = SubResource("PrismMesh_wvw88")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGMesh3D5"]
+transform = Transform3D(1, 0, -1.33227e-15, 0, 1, 0, -5.68434e-14, 0, 1, 0.249859, 0, 8.62615e-08)
+operation = 2
+size = Vector3(0.5, 1, 1.1)
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="."]
+transform = Transform3D(-2.73485e-07, 0, -3.35115, 0, 4.83608, 0, 6.25662, 0, -1.46484e-07, 0, 3.45893, -15.5324)
+use_collision = true
+mesh = SubResource("PrismMesh_wvw88")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGMesh3D6"]
+transform = Transform3D(-7.54979e-08, 6.60024e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, 7.54979e-08, 0.253512, 0, 8.75225e-08)
+operation = 2
+size = Vector3(1.1, 1, 0.5)
+
+[node name="Damage Test" parent="." instance=ExtResource("4_80rd2")]
+transform = Transform3D(5.1205, 0, 0, 0, 1, 0, 0, 0, 5.52923, 8.67682, 1, -30.3933)
+
+[node name="stamina_regeneration_test" parent="." instance=ExtResource("5_ym7sv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.65572, 1.23074, -12.3346)
+
+[node name="stamina_regeneration_test2" parent="." instance=ExtResource("5_ym7sv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 9.7095, 1.23074, -15.2596)
+
+[node name="stamina_regeneration_test3" parent="." instance=ExtResource("5_ym7sv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.54715, 1.23074, -20.5449)
+
+[node name="stamina_regeneration_test4" parent="." instance=ExtResource("5_ym7sv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.6851, 1.23074, -16.6978)
+
+[node name="stamina_regeneration_test5" parent="." instance=ExtResource("5_ym7sv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.6851, 1.23074, -13.489)
+
+[node name="stamina_regeneration_test6" parent="." instance=ExtResource("5_ym7sv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.4781, 1.23074, -19.1459)
+
+[node name="RB_Test" parent="." instance=ExtResource("6_rl1so")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.868299, 6.31295, -15.9059)
+can_sleep = false

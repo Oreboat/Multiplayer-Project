@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://lg2uwcp0ccfn"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_4sh4o"]
+[ext_resource type="PackedScene" uid="uid://b57at16o81c53" path="res://src/nodes/level/Test.tscn" id="2_55ho1"]
+[ext_resource type="PackedScene" uid="uid://dp44bkgeao5wi" path="res://src/nodes/general/camera.tscn" id="3_jbprt"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_4sh4o")
+
+[node name="HostUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HostUI"]
+
+[node name="MainMenu" type="PanelContainer" parent="HostUI/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.5
+offset_top = -97.0
+offset_right = 184.5
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="HostUI/CanvasLayer/MainMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HostUI/CanvasLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="HostUI/CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HostButton" type="Button" parent="HostUI/CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="HostUI/CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="LineEdit" type="LineEdit" parent="HostUI/CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter Address to Join here"
+alignment = 1
+
+[node name="World" parent="." instance=ExtResource("2_55ho1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7169, -12.9841, 13.9324)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://src/nodes/general/client_controller.tscn", "res://rb_test.tscn")
+spawn_path = NodePath("..")
+
+[node name="Camera" parent="." instance=ExtResource("3_jbprt")]
+
+[connection signal="pressed" from="HostUI/CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="HostUI/CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
